@@ -61,14 +61,32 @@ namespace PI.Controllers
 
         }
 
+        [HttpGet]
+        public ActionResult Edit()
+        {
+            return View();
+        }
 
+
+        [HttpPost]
+        public ActionResult Edit(int iduser, User user)
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:8082/SpringMVC/");
+
+            client.PutAsJsonAsync("servlet/updateUser", user).ContinueWith((putTask) => putTask.Result.EnsureSuccessStatusCode());
+
+            return RedirectToAction("Index");
+
+        }
 
 
 
     }
-
-
 }
+
+
+
 
 
 
